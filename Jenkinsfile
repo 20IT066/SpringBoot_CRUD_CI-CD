@@ -41,8 +41,8 @@ pipeline {
                     //gv.deployApp()
 
                     def dockerCmd="docker run -p 8080:8080 --name ec2-spring -d pm310/spring-app:ra-2.0"
-                    def dockerStop="docker stop ec2-react"
-                    def dockerDelete="docker rm ec2-react"
+                    def dockerStop="docker stop ec2-spring"
+                    def dockerDelete="docker rm ec2-spring"
                     sshagent(['ec2-server-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.95.222.132 ${dockerStop}"
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.95.222.132 ${dockerDelete}"
