@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        IMAGE_NAME= 'pm310/spring_exam-app:5.0'
+        IMAGE_NAME= 'pm310/spring_exam-app:5.1'
     }
 
     stages {
@@ -42,10 +42,9 @@ pipeline {
                     def dockerDelete="docker rm ec2-spring"
                     def dockerCreate="docker run -p 8080:8080 --name ec2-spring ${IMAGE_NAME}"
 
-                    sshagent(['ec2-ubuntu-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.95.222.132 ${dockerStop}"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.95.222.132 ${dockerDelete}"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.95.222.132 ${dockerCreate}"
+                    sshagent(['ec2-linux-key']) {
+
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@43.207.163.19 ${dockerCreate}"
 
                     }
                 }
