@@ -43,7 +43,8 @@ pipeline {
                     def dockerCreate="docker run -p 8080:8080 --name ec2-spring ${IMAGE_NAME}"
 
                     sshagent(['ec2-linux-key']) {
-
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@43.207.163.19 ${dockerStop}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@43.207.163.19 ${dockerDelete}"
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@43.207.163.19 ${dockerCreate}"
 
                     }
