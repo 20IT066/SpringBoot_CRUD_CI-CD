@@ -40,7 +40,7 @@ pipeline {
                     sh 'mvn clean package'
                     def version = (readFile('pom.xml') =~ '<version>(.+)</version>')[0][2]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
-                    sh "docker build -t learnwithparth/spring-boot:${IMAGE_NAME} ."
+                    sh "docker build -t pm310/spring_exam-app:${IMAGE_NAME} ."
                         
                     }
             }
@@ -67,9 +67,9 @@ pipeline {
         }
             steps {
                 script{echo 'deploying the application'
-                withCredentials([usernamePassword(credentialsId: 'docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-pm310', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
                     sh "echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin"
-                    sh "docker push learnwithparth/spring-boot:${IMAGE_NAME}"
+                    sh "docker push pm310/spring_exam-app:${IMAGE_NAME}"
                 }}
                 
              }
